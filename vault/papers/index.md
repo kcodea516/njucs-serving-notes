@@ -1,14 +1,9 @@
 # 论文精读
 
-按学习路线分组。收录到文献库表示已归档，只有实际写完笔记的论文才标记为已读。
+这里只列已有阅读笔记。完整的主线论文和泛读清单见[学习路线](../index.md)。
 
-| 分组 | 关注问题 | 入口 |
-|---|---|---|
-| A · Inference Foundations | 推理流程、Roofline、attention 的计算与访存 | [A 组](a-inference-foundations/index.md) |
-| B · Serving Systems | KV 管理、batching、调度、分布式执行 | [B 组](b-serving-systems/index.md) |
-| C · Algorithmic Acceleration | KV 压缩、量化、投机解码 | [C 组](c-algorithmic-acceleration/index.md) |
-| D · Multimodal Models | 视觉输入、分辨率与 token 构成 | [D 组](d-multimodal-models/index.md) |
-| E · Visual Token Compression | 视觉预算、压缩位置与质量代价 | [E 组](e-visual-token-compression/index.md) |
-| F · Multimodal Serving | encode/prefill/decode、阶段干扰与资源分配 | [F 组](f-multimodal-serving/index.md) |
+## A · 推理基础
 
-每篇论文可以建立独立目录，使用 `notes.md`、`answers.md`、`reading-list.md` 保存不同内容。[精读模板](template.md) 可按论文类型调整。
+- A1 · 高效 LLM 推理综述：[原始笔记](a-inference-foundations/efficient-inference-survey/notes.md) · [逐问答疑](a-inference-foundations/efficient-inference-survey/answers.md)
+
+新笔记采用[精读模板](template.md)，每篇一页。当前分组及文件命名约定见仓库维护说明。

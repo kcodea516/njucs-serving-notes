@@ -1,5 +1,5 @@
 site_name: NJU CS · Serving Notes
-site_description: 论文阅读笔记与学习路线
+site_description: 多模态 serving 调度的学习路线与论文精读
 site_url: https://kcodea516.github.io/njucs-serving-notes/
 theme:
   name: material
@@ -51,22 +51,10 @@ nav:
 - 论文精读:
   - papers/index.md
   - A · 推理基础:
-    - papers/a-inference-foundations/index.md
     - A1 · 原始笔记: papers/a-inference-foundations/efficient-inference-survey/notes.md
     - A1 · 逐问答疑: papers/a-inference-foundations/efficient-inference-survey/answers.md
-    - A1 · 研读清单: papers/a-inference-foundations/efficient-inference-survey/reading-list.md
-  - B · Serving 系统:
-    - papers/b-serving-systems/index.md
-    - 内存管理: papers/b-serving-systems/memory-management/index.md
-    - 批处理: papers/b-serving-systems/batching/index.md
-    - 调度: papers/b-serving-systems/scheduling/index.md
-    - 论文相关框架: papers/b-serving-systems/frameworks.md
-  - C · 算法加速: papers/c-algorithmic-acceleration/index.md
-  - D · 多模态模型: papers/d-multimodal-models/index.md
-  - E · 视觉 Token 压缩: papers/e-visual-token-compression/index.md
-  - F · 多模态 Serving: papers/f-multimodal-serving/index.md
-  - 文献目录: papers/library.md
   - 精读模板: papers/template.md
+  - 实践计划（暂缓，待更新）: practice-plan.md
 exclude_docs: '/notes/
 
   '
@@ -80,3 +68,8 @@ validation:
 docs_dir: docs
 extra:
   generator: false
+not_in_nav: 'papers/a-inference-foundations/efficient-inference-survey/reading-list.md
+
+  papers/b-serving-systems/frameworks.md
+
+  '

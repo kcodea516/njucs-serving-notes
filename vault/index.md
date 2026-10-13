@@ -3,116 +3,102 @@ aliases:
 - 学习总路线
 ---
 
-# Serving 论文阅读路线
+# 学习路线
 
-原有 A–F 分组与学习安排。新增研读材料见 [A1 研读清单](papers/a-inference-foundations/efficient-inference-survey/reading-list.md)，按实际瓶颈选择候选方向。
+## 研究方向
 
-链接都是 arXiv 的 PDF。2025 年以后的论文我联网核实过，较早的经典论文是凭记忆给的编号。打不开的话，用标题搜一下就能找到。
+研究主线是多模态 serving 的调度，包含 batching 策略。当前关注视觉编码器不能直接照搬因果 prefill 分块机制带来的调度约束、多模态请求的成本模型、混合负载下的 SLO 冲突，以及负载自适应的视觉 token 预算。通过 profiling 和相关工作对照确认瓶颈，再选择可验证的调度问题。
 
-### A. 推理基础：先搞清楚瓶颈在哪
+## 主线论文（20 篇）
 
-|#|论文|链接|重点看什么|
-|---|---|---|---|
-|1|A Survey on Efficient Inference for LLMs|[2404.14294](https://arxiv.org/pdf/2404.14294)|当地图用，建立分类框架|
-|2|LLM Inference Unveiled: Survey and Roofline Model Insights|[2402.16363](https://arxiv.org/pdf/2402.16363)|**Roofline 分析**，搞懂为什么 prefill 受算力限制、decode 受访存限制|
-|3|FlashAttention|[2205.14135](https://arxiv.org/pdf/2205.14135)|IO-aware 的思路，理解访存才是瓶颈|
-|4|FlashAttention-2|[2307.08691](https://arxiv.org/pdf/2307.08691)|并行划分|
+按序号阅读；A1 已完成，其余目前为未读。笔记完成后更新状态和链接。简称旁的 Zotero 链接用于打开本地条目。
 
-### B. Serving 系统主线：调度、内存、PD 分离
+### A · 推理基础
 
-|#|论文|链接|
-|---|---|---|
-|5|Orca（continuous batching 的起源）|[OSDI'22 PDF](https://www.usenix.org/system/files/osdi22-yu.pdf)|
-|6|vLLM / PagedAttention|[2309.06180](https://arxiv.org/pdf/2309.06180)|
-|7|SGLang / RadixAttention|[2312.07104](https://arxiv.org/pdf/2312.07104)|
-|8|Sarathi-Serve（chunked prefill）|[2403.02310](https://arxiv.org/pdf/2403.02310)|
-|9|DistServe（PD 分离、goodput 的概念）|[2401.09670](https://arxiv.org/pdf/2401.09670)|
-|10|Splitwise|[2311.18677](https://arxiv.org/pdf/2311.18677)|
-|11|Mooncake（Kimi 的 KV 中心架构）|[2407.00079](https://arxiv.org/pdf/2407.00079)|
-|12|Llumnix（请求迁移、负载均衡）|[2406.03243](https://arxiv.org/pdf/2406.03243)|
+| 序号 | 简称 | 标题 | PDF 链接 | 状态 | 笔记链接 |
+| --- | --- | --- | --- | --- | --- |
+| A1 | Efficient Inference Survey · [Zotero](zotero://select/library/items/BXYPLGW7) | A Survey on Efficient Inference for Large Language Models | [PDF](https://arxiv.org/pdf/2404.14294) | 已读 | [原始笔记](papers/a-inference-foundations/efficient-inference-survey/notes.md) · [逐问答疑](papers/a-inference-foundations/efficient-inference-survey/answers.md) |
+| 01 | Roofline · [Zotero](zotero://select/library/items/39NN3CGB) | LLM Inference Unveiled: Survey and Roofline Model Insights | [PDF](https://arxiv.org/pdf/2402.16363) | 未读 | 暂无 |
 
-### C. 算法层加速：KV cache、量化、投机解码
+### B · 批处理与服务系统基础
 
-|#|论文|链接|
-|---|---|---|
-|13|H2O（KV eviction）|[2306.14048](https://arxiv.org/pdf/2306.14048)|
-|14|StreamingLLM（attention sink）|[2309.17453](https://arxiv.org/pdf/2309.17453)|
-|15|SnapKV|[2404.14469](https://arxiv.org/pdf/2404.14469)|
-|16|KIVI（KV 量化）|[2402.02750](https://arxiv.org/pdf/2402.02750)|
-|17|AWQ（权重量化）|[2306.00978](https://arxiv.org/pdf/2306.00978)|
-|18|Speculative Decoding（Leviathan et al.）|[2211.17192](https://arxiv.org/pdf/2211.17192)|
-|19|EAGLE|[2401.15077](https://arxiv.org/pdf/2401.15077)|
-|20|MInference（长上下文稀疏 prefill）|[2407.02490](https://arxiv.org/pdf/2407.02490)|
+| 序号 | 简称 | 标题 | PDF 链接 | 状态 | 笔记链接 |
+| --- | --- | --- | --- | --- | --- |
+| 02 | Orca · [Zotero](zotero://select/library/items/G29SWJ7U) | Orca: A Distributed Serving System for Transformer-Based Generative Models | [PDF](https://www.usenix.org/system/files/osdi22-yu.pdf) | 未读 | 暂无 |
+| 03 | vLLM · [Zotero](zotero://select/library/items/ITLI9Q8Q) | Efficient Memory Management for Large Language Model Serving with PagedAttention | [PDF](https://arxiv.org/pdf/2309.06180) | 未读 | 暂无 |
+| 04 | Sarathi-Serve · [Zotero](zotero://select/library/items/9XGS64FF) | Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve | [PDF](https://arxiv.org/pdf/2403.02310) | 未读 | 暂无 |
+| 05 | DeepSpeed-FastGen · [Zotero](zotero://select/library/items/KFA5F4GP) | DeepSpeed-FastGen: High-throughput Text Generation for LLMs via MII and DeepSpeed-Inference | [PDF](https://arxiv.org/pdf/2401.08671) | 未读 | 暂无 |
+| 06 | DistServe · [Zotero](zotero://select/library/items/9UQJ79PH) | DistServe: Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving | [PDF](https://arxiv.org/pdf/2401.09670) | 未读 | 暂无 |
 
-### D. 多模态模型本身：知道 token 是怎么来的
+### C · 文本 LLM 调度
 
-|#|论文|链接|
-|---|---|---|
-|21|Qwen2-VL（动态分辨率、M-RoPE）|[2409.12191](https://arxiv.org/pdf/2409.12191)|
-|22|InternVL 1.5（动态切 tile）|[2404.16821](https://arxiv.org/pdf/2404.16821)|
+| 序号 | 简称 | 标题 | PDF 链接 | 状态 | 笔记链接 |
+| --- | --- | --- | --- | --- | --- |
+| 07 | FastServe · [Zotero](zotero://select/library/items/ZJQFDKQ3) | Fast Distributed Inference Serving for Large Language Models | [PDF](https://arxiv.org/pdf/2305.05920) | 未读 | 暂无 |
+| 08 | VTC · [Zotero](zotero://select/library/items/GHLLL739) | Fairness in Serving Large Language Models | [PDF](https://arxiv.org/pdf/2401.00588) | 未读 | 暂无 |
+| 09 | Learning to Rank · [Zotero](zotero://select/library/items/9ADQLTAS) | Efficient LLM Scheduling by Learning to Rank | [PDF](https://arxiv.org/pdf/2408.15792) | 未读 | 暂无 |
+| 10 | Llumnix · [Zotero](zotero://select/library/items/HNRQCHYG) | Llumnix: Dynamic Scheduling for Large Language Model Serving | [PDF](https://arxiv.org/pdf/2406.03243) | 未读 | 暂无 |
 
-### E. 视觉 token 压缩（算法层，和你最对口）
+### D · 多模态模型
 
-|#|论文|链接|
-|---|---|---|
-|23|FastV（"一张图值半个 token"）|[2403.06764](https://arxiv.org/pdf/2403.06764)|
-|24|SparseVLM|[2410.04417](https://arxiv.org/pdf/2410.04417)|
-|25|VisionZip|[2412.04467](https://arxiv.org/pdf/2412.04467)|
-|26|TopV（兼容 FlashAttention 的剪枝）|[2503.18278](https://arxiv.org/pdf/2503.18278)|
-|27|VLM 高效推理综述|[2603.27960](https://arxiv.org/pdf/2603.27960)|
+| 序号 | 简称 | 标题 | PDF 链接 | 状态 | 笔记链接 |
+| --- | --- | --- | --- | --- | --- |
+| 11 | Qwen2-VL · [Zotero](zotero://select/library/items/HHW8ELR3) | Qwen2-VL: Enhancing Vision-Language Model's Perception of the World at Any Resolution | [PDF](https://arxiv.org/pdf/2409.12191) | 未读 | 暂无 |
 
-### F. 多模态 serving 系统（你的主战场）
+### E · 视觉 Token 自适应
 
-|#|论文|链接|
-|---|---|---|
-|28|EPD Disaggregation（ICML'25，Encode/Prefill/Decode 三段分离）|[2501.05460](https://arxiv.org/pdf/2501.05460)|
-|29|ModServe（模态感知、按阶段分离）|[2502.00937](https://arxiv.org/pdf/2502.00937)|
-|30|HydraInfer（混合 EPD，按负载动态选择拓扑）|[2505.12658](https://arxiv.org/pdf/2505.12658)|
-|+|ElasticMM|[2507.10069](https://arxiv.org/pdf/2507.10069)|
-|+|TCM-Serve（模态感知调度）|[2603.26498](https://arxiv.org/pdf/2603.26498)|
-|+|vLLM-Omni（any-to-any 模型的分离式 serving）|[2602.02204](https://arxiv.org/pdf/2602.02204)|
+| 序号 | 简称 | 标题 | PDF 链接 | 状态 | 笔记链接 |
+| --- | --- | --- | --- | --- | --- |
+| 12 | FastV · [Zotero](zotero://select/library/items/9NRLNFI3) | An Image is Worth 1/2 Tokens After Layer 2: Plug-and-Play Inference Acceleration for Large Vision-Language Models | [PDF](https://arxiv.org/pdf/2403.06764) | 未读 | 暂无 |
+| 13 | TopV · [Zotero](zotero://select/library/items/SYPZFF3X) | TopV: Compatible Token Pruning with Inference Time Optimization for Fast and Low-Memory Multimodal Vision Language Model | [PDF](https://arxiv.org/pdf/2503.18278) | 未读 | 暂无 |
+| 19 | SmartVL · [Zotero](zotero://select/library/items/DK3VFCBT) | Look Less, Think Faster: Joint Token-Compute Adaptation for Multimodal LLMs | [PDF](https://arxiv.org/pdf/2607.20357) | 未读 | 暂无 |
 
-**关于你之前的 idea：** HydraInfer 和 ElasticMM 做的正是"根据负载动态调整"，只不过它们调整的是资源和拓扑，不是回答质量。你那个"高负载时降成本回答"的想法，可以理解为把 **E 组（token 压缩）和 F 组（负载感知调度）结合**：负载高的时候，对部分请求自适应地加大视觉 token 压缩率，用一点点精度换 SLO。先查有没有人做过，再测数据，看 trade-off 曲线是否成立。这个想法比之前具体多了。
+### F · 多模态 Serving
 
----
+| 序号 | 简称 | 标题 | PDF 链接 | 状态 | 笔记链接 |
+| --- | --- | --- | --- | --- | --- |
+| 14 | EPD · [Zotero](zotero://select/library/items/YR2VE82F) | Efficiently Serving Large Multimodal Models Using EPD Disaggregation | [PDF](https://arxiv.org/pdf/2501.05460) | 未读 | 暂无 |
+| 15 | ModServe · [Zotero](zotero://select/library/items/BTGL8M3S) | ModServe: Modality- and Stage-Aware Resource Disaggregation for Scalable Multimodal Model Serving | [PDF](https://arxiv.org/pdf/2502.00937) | 未读 | 暂无 |
+| 16 | HydraInfer · [Zotero](zotero://select/library/items/PJAAKAZB) | HydraInfer: Hybrid Disaggregated Scheduling for Multimodal Large Language Model Serving | [PDF](https://arxiv.org/pdf/2505.12658) | 未读 | 暂无 |
+| 17 | ElasticMM · [Zotero](zotero://select/library/items/QSL4JZ98) | ElasticMM: Efficient Multimodal LLMs Serving with Elastic Multimodal Parallelism | [PDF](https://arxiv.org/pdf/2507.10069) | 未读 | 暂无 |
+| 18 | TCM-Serve · [Zotero](zotero://select/library/items/KB5332M5) | TCM-Serve: Modality-aware Scheduling for Multimodal Large Language Model Inference | [PDF](https://arxiv.org/pdf/2603.26498) | 未读 | 暂无 |
 
-# 二、怎么读：每篇写一页笔记
+## 泛读清单
 
-**每篇论文都回答这 8 个问题：**
+??? note "G · Background (Skim)：27 篇背景论文"
 
-1. **问题**：一句话说清楚它解决什么瓶颈。
-2. **动机数据**：Motivation 部分的那张图是什么？这个问题是用什么数据证明存在的？**这一点最重要，你以后写论文也要从这里起步。**
-3. **关键洞察**：方案背后的那个观察是什么（比如"视觉 token 在第 2 层之后的注意力很稀疏"）？
-4. **核心假设**：方案在什么前提下才成立？
-5. **实验设置**：用了哪些模型、数据集、负载 trace、baseline、指标（TTFT/TPOT/goodput/SLO attainment）？
-6. **收益从哪来**：Ablation 里哪个组件贡献最大？
-7. **局限**：作者承认了什么？没承认的又是什么？（比如只测了单图、只测了 7B 模型、负载是合成的）
-8. **迁移**：这个假设在多模态 / 视频 / 多图 / 高负载下还成立吗？
+    - [AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration](https://arxiv.org/pdf/2306.00978) · [Zotero](zotero://select/library/items/TPNVNU3A)
+    - [EAGLE: Speculative Sampling Requires Rethinking Feature Uncertainty](https://arxiv.org/pdf/2401.15077) · [Zotero](zotero://select/library/items/AQPLRUYK)
+    - [Efficient Inference for Large Vision-Language Models: Bottlenecks, Techniques, and Prospects](https://aclanthology.org/2026.findings-acl.1057.pdf) · [Zotero](zotero://select/library/items/ML7AA4K9)
+    - [Efficient Streaming Language Models with Attention Sinks](https://arxiv.org/pdf/2309.17453) · [Zotero](zotero://select/library/items/D45FHZUQ)
+    - [Fast Inference from Transformers via Speculative Decoding](https://arxiv.org/pdf/2211.17192) · [Zotero](zotero://select/library/items/CMKEYMBD)
+    - [FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning](https://arxiv.org/pdf/2307.08691) · [Zotero](zotero://select/library/items/GREKPM4M)
+    - [FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](https://arxiv.org/pdf/2205.14135) · [Zotero](zotero://select/library/items/65P68IAK)
+    - [FlashInfer: Efficient and Customizable Attention Engine for LLM Inference Serving](https://arxiv.org/pdf/2501.01005) · [Zotero](zotero://select/library/items/6QXMYG3Z)
+    - [How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites](https://arxiv.org/pdf/2404.16821) · [Zotero](zotero://select/library/items/5A2B2M3V)
+    - [H₂O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models](https://arxiv.org/pdf/2306.14048) · [Zotero](zotero://select/library/items/DXR9LJ7F)
+    - [Improved Baselines with Visual Instruction Tuning](https://arxiv.org/pdf/2310.03744) · [Zotero](zotero://select/library/items/ZVQ9TJZW)
+    - [KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache](https://arxiv.org/pdf/2402.02750) · [Zotero](zotero://select/library/items/ZHENBECS)
+    - [MagicPIG: LSH Sampling for Efficient LLM Generation](https://arxiv.org/pdf/2410.16179) · [Zotero](zotero://select/library/items/6UWGIPBJ)
+    - [MInference 1.0: Accelerating Pre-filling for Long-Context LLMs via Dynamic Sparse Attention](https://arxiv.org/pdf/2407.02490) · [Zotero](zotero://select/library/items/XCG29I76)
+    - [Mooncake: A KVCache-centric Disaggregated Architecture for LLM Serving](https://arxiv.org/pdf/2407.00079) · [Zotero](zotero://select/library/items/EAXBRKSY)
+    - [RUTA: Principled Visual Token Allocation via Rate-Utility Optimization](https://arxiv.org/pdf/2608.04132) · [Zotero](zotero://select/library/items/A9D95M97)
+    - [SARATHI: Efficient LLM Inference by Piggybacking Decodes with Chunked Prefills](https://arxiv.org/pdf/2308.16369) · [Zotero](zotero://select/library/items/9K5FVMFW)
+    - [Scissorhands: Exploiting the Persistence of Importance Hypothesis for LLM KV Cache Compression at Test Time](https://arxiv.org/pdf/2305.17118) · [Zotero](zotero://select/library/items/MPNZ4NDZ)
+    - [SGLang: Efficient Execution of Structured Language Model Programs](https://arxiv.org/pdf/2312.07104) · [Zotero](zotero://select/library/items/8CTX7RIP)
+    - [SnapKV: LLM Knows What You are Looking for Before Generation](https://arxiv.org/pdf/2404.14469) · [Zotero](zotero://select/library/items/DY9YRQKR)
+    - [SparseVLM: Visual Token Sparsification for Efficient Vision-Language Model Inference](https://arxiv.org/pdf/2410.04417) · [Zotero](zotero://select/library/items/82S3BWLQ)
+    - [Splitwise: Efficient generative LLM inference using phase splitting](https://arxiv.org/pdf/2311.18677) · [Zotero](zotero://select/library/items/A28QRUDP)
+    - [S³: Increasing GPU Utilization during Generative Inference for Higher Throughput](https://arxiv.org/pdf/2306.06000) · [Zotero](zotero://select/library/items/NP7EGC8I)
+    - [Towards Efficient Large Vision-Language Models: A Comprehensive Survey on Inference Strategies](https://arxiv.org/pdf/2603.27960) · [Zotero](zotero://select/library/items/MTG3B7YX)
+    - [VisionZip: Longer is Better but Not Necessary in Vision Language Models](https://arxiv.org/pdf/2412.04467) · [Zotero](zotero://select/library/items/W5RUXH3Z)
+    - [vLLM-Omni: Fully Disaggregated Serving for Any-to-Any Multimodal Models](https://arxiv.org/pdf/2602.02204) · [Zotero](zotero://select/library/items/SCVN75B3)
+    - [xLLM Technical Report](https://arxiv.org/pdf/2510.14686) · [Zotero](zotero://select/library/items/BKCQMQ6S)
 
-**读的时候要特别留意：**
+??? note "配套项目与官方资料"
 
-- **Baseline 是否公平**：是不是拿旧版 vLLM 当对手，有没有开 chunked prefill 和 prefix caching？很多论文的收益就藏在这里。
-- **负载是否真实**：合成的泊松到达，还是真实 trace？
-- **指标是否挑过**：只报吞吐不报尾延迟，只报延迟不报精度，都要打问号。
-- **论文之间的矛盾**：比如 EPD 自己承认"只看吞吐不看 SLO 时，不分离反而更好"。这种矛盾的地方，往往就是新论文的切入点。
-
-**读的方法：**
-
-- A、B 组精读，要配合 vLLM 源码一起看（`vllm/core/scheduler.py`、`vllm/v1/` 下的调度和 KV 管理部分）。
-- E、F 组精读，并且**每组至少复现一篇**。
-- 维护一张对比表：每行一篇论文，列是"问题 / 假设 / 场景 / 指标 / 局限"。读到第 20 篇左右，表里的空白格子就是你的候选 idea。
-
----
-
-# 三、怎么实践：前 8 周的计划
-
-|周|做什么|产出|
-|---|---|---|
-|1–2|读 A、B 组；在 A800 上跑通 vLLM 和 SGLang，部署 Qwen2.5-VL-7B 和 InternVL|能用 `benchmark_serving` 测 TTFT、TPOT、吞吐|
-|3–4|**做 profiling**：改变图片数、分辨率、视频帧数、请求率、图文混合比例，测各阶段耗时（ViT encode / prefill / decode），以及 KV 占用和排队时间。工具用 `torch.profiler` 和 Nsight Systems|一份带图的 profiling 报告，**拿去给宦老师和师兄看**|
-|5–6|读 E、F 组，复现 FastV（或 VisionZip）以及 EPD（[代码在这里](https://github.com/vbdi/epdserve)）|复现数据，并和论文报告的数字对比|
-|7–8|拿 profiling 报告对照论文对比表，挑 2–3 个"数据显示有问题、现有工作没覆盖"的点，每个做一个最小验证实验|1 个立得住的 idea，带 motivation 图|
-
-**和 GPT 的正确分工：** 让它帮你读源码、写 profiling 脚本、查相关工作有没有撞车、挑你的论证漏洞。**问题本身要由你的数据来定**，不要让它来想 idea。
-
-**开源贡献：** 在 profiling 过程中，你大概率会碰到 vLLM 多模态部分的 bug 或性能问题。顺手去提 issue 或 PR，这是最自然的开源入口。
+    - [FlashInfer Documentation](https://docs.flashinfer.ai/) · [Zotero](zotero://select/library/items/46REJTA4)
+    - [LightLLM](https://github.com/ModelTC/lightllm) · [Zotero](zotero://select/library/items/DMBZLK2J)
+    - [DeepSpeed](https://github.com/deepspeedai/DeepSpeed) · [Zotero](zotero://select/library/items/EA2TUMDM)
+    - [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) · [Zotero](zotero://select/library/items/3J3VFAYB)
+    - [InternVL2](https://internvl.github.io/blog/2024-07-02-InternVL-2.0/) · [Zotero](zotero://select/library/items/3KANFLNE)
