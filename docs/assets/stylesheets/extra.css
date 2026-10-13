@@ -1,0 +1,10 @@
+:root { --md-primary-fg-color: #3b477d; --md-accent-fg-color: #526ee8; }
+.md-grid { max-width: 1480px; }
+.md-typeset { font-size: .82rem; line-height: 1.85; }
+.md-typeset h1 { font-weight: 650; color: var(--md-default-fg-color); }
+.md-typeset h2 { font-weight: 600; margin-top: 2.2em; }
+.md-typeset table:not([class]) { font-size: .76rem; }
+.md-typeset img { border: 1px solid var(--md-default-fg-color--lightest); border-radius: 6px; }
+.md-typeset .grid.cards > ul > li { border-radius: 8px; }
+.md-header__topic { font-weight: 650; }
+@media (min-width: 1220px) { .md-sidebar--primary { width: 13rem; } }
