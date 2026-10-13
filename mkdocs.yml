@@ -1,9 +1,6 @@
 site_name: NJU CS · Serving Notes
-site_description: LLM 与多模态 Serving 的论文精读、系统实践和研究笔记
+site_description: 论文阅读笔记与学习路线
 site_url: https://kcodea516.github.io/njucs-serving-notes/
-repo_url: https://github.com/kcodea516/njucs-serving-notes
-repo_name: kcodea516/njucs-serving-notes
-edit_uri: edit/main/docs/
 theme:
   name: material
   language: zh
@@ -11,80 +8,68 @@ theme:
   icon:
     logo: material/book-open-page-variant
   palette:
-    - scheme: default
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/weather-night
-        name: 切换深色模式
-    - scheme: slate
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/weather-sunny
-        name: 切换浅色模式
+  - scheme: default
+    primary: indigo
+    accent: indigo
+    toggle:
+      icon: material/weather-night
+      name: 切换深色模式
+  - scheme: slate
+    primary: indigo
+    accent: indigo
+    toggle:
+      icon: material/weather-sunny
+      name: 切换浅色模式
   features:
-    - navigation.tabs
-    - navigation.sections
-    - navigation.indexes
-    - navigation.top
-    - navigation.tracking
-    - search.suggest
-    - search.highlight
-    - content.code.copy
+  - navigation.tabs
+  - navigation.sections
+  - navigation.indexes
+  - navigation.top
+  - navigation.tracking
+  - search.suggest
+  - search.highlight
+  - content.code.copy
 plugins:
-  - search:
-      lang: [zh, en]
+- search:
+    lang:
+    - zh
+    - en
 markdown_extensions:
-  - admonition
-  - attr_list
-  - md_in_html
-  - tables
-  - toc:
-      permalink: true
-  - pymdownx.details
-  - pymdownx.superfences
-  - pymdownx.highlight
-  - pymdownx.tabbed:
-      alternate_style: true
-extra_css:
-  - assets/stylesheets/extra.css
+- admonition
+- attr_list
+- md_in_html
+- tables
+- toc:
+    permalink: true
+- pymdownx.details
+- pymdownx.superfences
+- pymdownx.highlight
+- pymdownx.tabbed:
+    alternate_style: true
 nav:
-  - 首页: index.md
-  - 学习路线: roadmap/reading-roadmap.md
-  - 基础概念: foundations/serving-system-map.md
-  - 论文精读:
-      - papers/index.md
-      - A · 推理基础:
-          - papers/a-inference-foundations/index.md
-          - A1 · 原始笔记: papers/a-inference-foundations/efficient-inference-survey/notes.md
-          - A1 · 逐问答疑: papers/a-inference-foundations/efficient-inference-survey/answers.md
-          - A1 · 研读清单: papers/a-inference-foundations/efficient-inference-survey/reading-list.md
-      - B · Serving 系统:
-          - papers/b-serving-systems/index.md
-          - 内存管理: papers/b-serving-systems/memory-management/index.md
-          - 批处理: papers/b-serving-systems/batching/index.md
-          - 调度: papers/b-serving-systems/scheduling/index.md
-      - C · 算法加速: papers/c-algorithmic-acceleration/index.md
-      - D · 多模态模型: papers/d-multimodal-models/index.md
-      - E · 视觉 Token 压缩: papers/e-visual-token-compression/index.md
-      - F · 多模态 Serving: papers/f-multimodal-serving/index.md
-  - 系统实践:
-      - practice/index.md
-      - vLLM 架构笔记: practice/vllm-architecture.md
-      - 框架研读: practice/frameworks.md
-  - 研究问题:
-      - 当前问题清单: research/questions.md
-      - 历史构想归档: research/adaptive-multimodal-serving-draft.md
-  - 资料与维护:
-      - 文献目录: references/library.md
-      - 原始笔记配图: references/figures.md
-      - 精读模板: templates/paper-note.md
-      - 实验模板: templates/experiment.md
-      - 仓库维护: maintenance.md
-      - 文件迁移记录: references/file-migration.md
-exclude_docs: |
-  !/templates/
+- 学习路线: index.md
+- 论文精读:
+  - papers/index.md
+  - A · 推理基础:
+    - papers/a-inference-foundations/index.md
+    - A1 · 原始笔记: papers/a-inference-foundations/efficient-inference-survey/notes.md
+    - A1 · 逐问答疑: papers/a-inference-foundations/efficient-inference-survey/answers.md
+    - A1 · 研读清单: papers/a-inference-foundations/efficient-inference-survey/reading-list.md
+  - B · Serving 系统:
+    - papers/b-serving-systems/index.md
+    - 内存管理: papers/b-serving-systems/memory-management/index.md
+    - 批处理: papers/b-serving-systems/batching/index.md
+    - 调度: papers/b-serving-systems/scheduling/index.md
+    - 论文相关框架: papers/b-serving-systems/frameworks.md
+  - C · 算法加速: papers/c-algorithmic-acceleration/index.md
+  - D · 多模态模型: papers/d-multimodal-models/index.md
+  - E · 视觉 Token 压缩: papers/e-visual-token-compression/index.md
+  - F · 多模态 Serving: papers/f-multimodal-serving/index.md
+  - 文献目录: papers/library.md
+  - 精读模板: papers/template.md
+exclude_docs: '/notes/
+
+  '
 validation:
   nav:
     omitted_files: warn
@@ -92,3 +77,6 @@ validation:
   links:
     not_found: warn
     unrecognized_links: warn
+docs_dir: docs
+extra:
+  generator: false
